@@ -324,28 +324,24 @@ class InformationWeightedSampler(Sampler):
             sampling_weights = mixed_weights
             candidate_indices = torch.arange(len(self.data_source))
 
+        # Determine actual number of samples to draw
+        # When keep_frac < 1.0, we might have fewer candidates than num_samples
+        actual_num_samples = min(self.num_samples, len(candidate_indices))
+
         # Sample indices using multinomial distribution
         if self.replacement:
             # Sample with replacement
             sampled_positions = torch.multinomial(
                 sampling_weights,
-                num_samples=self.num_samples,
+                num_samples=actual_num_samples,
                 replacement=True,
                 generator=self.generator,
             )
         else:
             # Sample without replacement
-            # If num_samples > len(candidate_indices), we need replacement
-            if self.num_samples > len(candidate_indices):
-                raise ValueError(
-                    f"Cannot sample {self.num_samples} samples without replacement "
-                    f"from {len(candidate_indices)} candidates. "
-                    f"Set replacement=True or reduce num_samples."
-                )
-
             sampled_positions = torch.multinomial(
                 sampling_weights,
-                num_samples=self.num_samples,
+                num_samples=actual_num_samples,
                 replacement=False,
                 generator=self.generator,
             )
