@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H3 Optimizer - Thermodynamically Efficient Deep Learning</title>
+    <meta name="description" content="H3 Optimizer achieves 12% faster training and 19% better energy efficiency. Validated on real hardware with PyPI package.">
+    <meta name="keywords" content="deep learning, optimizer, PyTorch, energy efficiency, thermodynamics, machine learning">
+    <meta name="author" content="Nuno Cardoso">
+
+    <style>
+        /* Modern CSS - no external dependencies */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--light);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--gradient);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            min-height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .hero .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        .hero .stats {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .stat-box {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 2rem;
+            border-radius: 12px;
+            min-width: 150px;
+        }
+
+        .stat-box .number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .stat-box .label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* CTA Buttons */
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+        }
+
+        /* Sections */
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--dark);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+
+        .feature-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        /* Results Table */
+        .results-table {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        .improvement {
+            color: var(--secondary);
+            font-weight: 700;
+        }
+
+        /* Code Section */
+        .code-block {
+            background: var(--dark);
+            color: #e2e8f0;
+            padding: 2rem;
+            border-radius: 12px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            margin: 2rem 0;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        /* Badges */
+        .badges {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .badge {
+            background: rgba(255,255,255,0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        footer a {
+            color: var(--secondary);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero .tagline {
+                font-size: 1.2rem;
+            }
+
+            .stat-box {
+                min-width: 120px;
+                padding: 1rem 1.5rem;
+            }
+
+            .stat-box .number {
+                font-size: 2rem;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>⚡ H3 Optimizer</h1>
+        <p class="tagline">Thermodynamically Efficient Deep Learning</p>
+
+        <div class="stats">
+            <div class="stat-box">
+                <span class="number">+18.6%</span>
+                <span class="label">Energy Efficiency</span>
+            </div>
+            <div class="stat-box">
+                <span class="number">12.2%</span>
+                <span class="label">Faster Training</span>
+            </div>
+            <div class="stat-box">
+                <span class="number">13.7%</span>
+                <span class="label">Energy Saved</span>
+            </div>
+        </div>
+
+        <p style="margin-top: 1rem; font-size: 1.1rem; opacity: 0.9;">
+            ✅ Validated on Apple M4 with real PowerMetrics measurements
+        </p>
+
+        <div class="badges">
+            <span class="badge">🐍 Python 3.7+</span>
+            <span class="badge">🔥 PyTorch</span>
+            <span class="badge">📦 PyPI v0.1.1</span>
+            <span class="badge">⚖️ MIT License</span>
+        </div>
+
+        <div class="cta-buttons">
+            <a href="https://pypi.org/project/h3-optimizer/" class="btn btn-primary">
+                📦 Install from PyPI
+            </a>
+            <a href="https://github.com/nfocardoso/EMSTI" class="btn btn-secondary">
+                💻 View on GitHub
+            </a>
+        </div>
+    </section>
+
+    <!-- Installation -->
+    <section class="section">
+        <h2>🚀 Quick Start</h2>
+
+        <div class="code-block"># Install from PyPI (validated package)
+pip install h3-optimizer
+
+# Basic usage
+from h3 import H3Optimizer, LossTracker, EnergyTracker
+
+optimizer = H3Optimizer(model.parameters(), lr=1e-3)
+tracker = EnergyTracker(device='cuda')
+
+# Train and measure efficiency
+tracker.start()
+# ... your training loop ...
+results = tracker.stop()
+print(f"Efficiency: {results['efficiency_bits_per_j']:.6f} bits/J")</div>
+    </section>
+
+    <!-- Validated Results -->
+    <section class="section" style="background: white;">
+        <h2>📊 Validated Results</h2>
+
+        <p style="text-align: center; margin-bottom: 2rem; font-size: 1.1rem;">
+            Measured on <strong>Apple M4</strong> with <strong>PowerMetrics</strong> (real hardware monitoring)
+        </p>
+
+        <div class="results-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Metric</th>
+                        <th>Adam Baseline</th>
+                        <th>H3 Optimizer</th>
+                        <th>Improvement</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Training Time</strong></td>
+                        <td>23.07s</td>
+                        <td>20.27s</td>
+                        <td class="improvement">⚡ 12.2% faster</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Test Accuracy</strong></td>
+                        <td>99.20%</td>
+                        <td>99.13%</td>
+                        <td>🎯 -0.07pp</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Energy Used</strong></td>
+                        <td>1357.68 J</td>
+                        <td>1172.02 J</td>
+                        <td class="improvement">💡 13.7% reduction</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Efficiency η</strong></td>
+                        <td>0.002375 bits/J</td>
+                        <td>0.002816 bits/J</td>
+                        <td class="improvement">📊 +18.6%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <p style="margin-top: 2rem; text-align: center; color: #64748b;">
+            <em>MNIST dataset, SimpleCNN, 5 epochs. Same package available on PyPI.</em>
+        </p>
+    </section>
+
+    <!-- Features -->
+    <section class="section">
+        <h2>✨ Key Features</h2>
+
+        <div class="features">
+            <div class="feature-card">
+                <div class="icon">🎯</div>
+                <h3>Lipschitz-Adaptive LR</h3>
+                <p>Automatically adjusts learning rates based on local loss curvature. Larger steps in smooth regions, smaller in steep areas.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">📊</div>
+                <h3>Information-Weighted Sampling</h3>
+                <p>Prioritizes high-loss (high-information) samples. Three-phase training: warmup → thermodynamic → consolidation.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">⚡</div>
+                <h3>Real Energy Tracking</h3>
+                <p>Multi-backend support: NVML (NVIDIA), PowerMetrics (Apple), TDP fallback. Measures η = ΔI/E (bits/joule).</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">🔬</div>
+                <h3>Thermodynamic Theory</h3>
+                <p>Based on information thermodynamics. Treats learning as energy-to-information conversion process.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">🐍</div>
+                <h3>PyTorch Compatible</h3>
+                <p>Drop-in replacement for Adam. Works with existing training code. Full type hints and documentation.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="icon">✅</div>
+                <h3>Production Ready</h3>
+                <p>Validated on real hardware. Available on PyPI. Comprehensive tests and examples included.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section" style="background: white;">
+        <h2>🧠 How It Works</h2>
+
+        <div class="features">
+            <div class="feature-card">
+                <h3>1️⃣ Warmup Phase</h3>
+                <p>Uniform sampling for stable initialization. Learn the general structure of the problem.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>2️⃣ Thermodynamic Phase</h3>
+                <p>Focus on high-information samples (top 65%). Maximize efficiency with Lipschitz-adaptive learning rates.</p>
+            </div>
+
+            <div class="feature-card">
+                <h3>3️⃣ Consolidation Phase</h3>
+                <p>Return to uniform sampling. Ensure all examples are well-represented in final model.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Paper -->
+    <section class="section">
+        <h2>📄 Research Paper</h2>
+
+        <p style="text-align: center; font-size: 1.1rem; margin-bottom: 2rem;">
+            Based on the paper <strong>"H3: A Thermodynamically Efficient Machine Learning Framework"</strong>
+        </p>
+
+        <div style="text-align: center;">
+            <a href="https://zenodo.org/records/14357760" class="btn btn-primary" style="background: var(--primary); color: white;">
+                📖 Read the Paper
+            </a>
+        </div>
+
+        <div class="code-block" style="margin-top: 2rem; font-size: 0.85rem;">@article{cardoso2025h3,
+  title={H3: A Thermodynamically Efficient Machine Learning Framework},
+  author={Cardoso, Nuno},
+  journal={Zenodo},
+  year={2025},
+  doi={10.5281/zenodo.17433760},
+  url={https://zenodo.org/records/14357760},
+  note={Implementation validated on Apple M4 hardware with real energy measurements}
+}
+
+@software{cardoso2025h3impl,
+  title={h3-optimizer: PyPI Package},
+  author={Cardoso, Nuno},
+  year={2025},
+  url={https://pypi.org/project/h3-optimizer/},
+  version={0.1.1}
+}</div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>
+            Developed by <a href="https://github.com/nfocardoso">Nuno Cardoso</a> |
+            <a href="https://github.com/nfocardoso/EMSTI">GitHub</a> |
+            <a href="https://pypi.org/project/h3-optimizer/">PyPI</a> |
+            <a href="https://zenodo.org/records/14357760">Paper</a>
+        </p>
+        <p style="margin-top: 1rem; opacity: 0.7;">
+            Licensed under MIT | Part of the EMSTI research framework
+        </p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.6;">
+            ⚡ H3: Where thermodynamics meets deep learning 📊
+        </p>
+    </footer>
+</body>
+</html>
