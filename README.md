@@ -93,6 +93,94 @@ python examples/quickstart.py  # H3 vs Adam comparison on MNIST
 
 ---
 
+## 🎯 Preset Configurations
+
+H3 provides pre-tuned configurations for common use cases - **no hyperparameter tuning required**:
+
+```python
+from h3.presets import h3_mnist_fast
+
+# One-liner setup for MNIST-like datasets
+optimizer, loss_tracker, indexed_dataset = h3_mnist_fast(
+    model.parameters(),
+    train_dataset
+)
+
+# Training loop with automatic phase management
+from torch.utils.data import DataLoader
+
+for epoch in range(10):
+    phase, sampler = preset.get_sampler(epoch, total_epochs=10)
+    loader = DataLoader(indexed_dataset, sampler=sampler, batch_size=64)
+    # ... your training code ...
+```
+
+**Available presets:**
+- `h3_mnist_fast()` - For highly redundant data (MNIST, Fashion-MNIST)
+  - 10-15% speedup, 15-20% efficiency gain
+  - Accuracy maintained (< 0.2pp difference)
+- `h3_cifar_safe()` - For complex datasets (CIFAR-10, CIFAR-100)
+  - 5-8% speedup, 8-12% efficiency gain
+  - Small accuracy trade-off (-0.5 to -1.5pp)
+- `h3_edge()` - For edge devices (IoT, mobile ML)
+  - 15-25% speedup, 20-30% efficiency gain
+  - Accepts larger accuracy trade-off (-2 to -4pp) for maximum energy savings
+
+See [docs/PRESETS.md](docs/PRESETS.md) for detailed documentation.
+
+---
+
+## 📊 Training Analysis & Logging
+
+H3 includes built-in logging and analysis tools for tracking thermodynamic efficiency:
+
+```python
+from h3.hooks import ThermoAuditLogger
+
+# Setup logging
+logger = ThermoAuditLogger(
+    "my_experiment",
+    metadata={"model": "ResNet-18", "dataset": "CIFAR-10"},
+    config={"epochs": 20, "batch_size": 128, "lr": 1e-3}
+)
+
+# In training loop
+logger.log_epoch(
+    epoch=epoch,
+    phase=phase,
+    keep_frac=0.65,
+    uniform_mix=0.2,
+    train_loss=loss.item(),
+    val_acc=accuracy,
+    energy_stats=tracker.get_current_stats()
+)
+
+# Analyze results
+from h3 import explain_thermo_log
+print(explain_thermo_log(logger.get_path()))
+```
+
+**CLI tool for analysis:**
+```bash
+# Analyze single run
+h3-report --h3-log mnist_h3.csv
+
+# Compare H3 vs baseline
+h3-report --h3-log mnist_h3.csv --baseline-log mnist_adam.csv
+
+# Compare multiple configurations
+h3-report --compare run1.csv run2.csv run3.csv
+```
+
+The `h3-report` tool provides:
+- Final metrics summary (accuracy, energy, efficiency)
+- Phase breakdown analysis
+- Heuristic assessment (starvation/aggressive/moderate/conservative)
+- Green Score calculation (energy efficiency ratio)
+- Automatic verdict with tuning recommendations
+
+---
+
 ## 🧠 What is H3?
 
 H3 treats machine learning as a **thermodynamic process** that converts electrical energy into predictive information. Instead of just minimizing loss, H3 maximizes:
