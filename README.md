@@ -181,6 +181,168 @@ The `h3-report` tool provides:
 
 ---
 
+## 🚀 Advanced Features (Phase 1: Production-Ready)
+
+H3 provides three levels of automation to match your needs:
+
+### 1. H3Profiler - Zero-Risk Profiling 🔬
+
+**Profile ANY optimizer** (Adam, SGD, AdamW, etc.) without changing your training code:
+
+```python
+from h3 import H3Profiler
+
+# Wrap your existing training loop
+profiler = H3Profiler(device='cuda', name="mnist_adam")
+profiler.start()
+
+# Your normal training loop - no changes needed!
+for epoch in range(20):
+    for batch in train_loader:
+        # ... your normal training code with Adam/SGD ...
+        profiler.log_batch(loss.item())
+
+    acc = evaluate(model, test_loader)
+    profiler.log_epoch(accuracy=acc)
+
+# Get comprehensive analysis
+results = profiler.stop()
+print(profiler.get_report())  # Detailed thermodynamic analysis
+profiler.export_csv("./profiles/adam_run.csv")
+```
+
+**What it does:**
+- ✅ Measures thermodynamic efficiency (η = bits/joule) in real-time
+- ✅ Finds optimal stopping point (diminishing returns detection)
+- ✅ Calculates energy waste: "You used 20% more energy than needed"
+- ✅ Suggests when H3 optimization could help
+- ✅ Zero risk - just measurement, no changes to training
+
+**Use when:** You want to understand your current training efficiency before committing to H3.
+
+---
+
+### 2. η-Controller - Automatic Hyperparameter Tuning 🎛️
+
+**Let H3 tune itself** based on real-time efficiency measurements:
+
+```python
+from h3 import create_controlled_h3
+
+# One-liner setup with automatic tuning
+optimizer, controller, loss_tracker, indexed_dataset = create_controlled_h3(
+    model.parameters(),
+    train_dataset,
+    mode="balanced",          # safe / balanced / green / extreme
+    accuracy_tolerance=1.0,   # Max acceptable accuracy loss (pp)
+    total_epochs=20
+)
+
+for epoch in range(20):
+    # Controller automatically adjusts parameters
+    keep_frac, uniform_mix, phase = controller.control_step()
+
+    # Create sampler with auto-tuned parameters
+    sampler = InformationWeightedSampler(
+        indexed_dataset, loss_tracker,
+        keep_frac=keep_frac,
+        uniform_mix=uniform_mix
+    )
+    loader = DataLoader(indexed_dataset, sampler=sampler, batch_size=128)
+
+    # ... training loop ...
+
+    # Controller learns and adapts
+    controller.observe(eta, accuracy, loss, energy, info)
+
+    # Optional: check status
+    if epoch % 5 == 0:
+        print(controller.get_report())
+```
+
+**Operating modes:**
+- `"safe"` - Maximize accuracy (keep_frac ~0.70, conservative)
+- `"balanced"` - Balance speed/accuracy (keep_frac ~0.55, recommended)
+- `"green"` - Maximize energy savings (keep_frac ~0.45, aggressive)
+- `"extreme"` - Maximum savings (keep_frac ~0.35, accepts accuracy loss)
+
+**What it does:**
+- ✅ Auto-adjusts keep_frac and uniform_mix in real-time
+- ✅ Respects accuracy constraints (won't sacrifice too much accuracy)
+- ✅ Prevents data starvation (detects loss volatility)
+- ✅ Automatic phase transitions (warmup → thermodynamic → consolidation)
+- ✅ Self-regulating thermodynamic system
+
+**Use when:** You want H3's benefits but don't want to manually tune hyperparameters.
+
+---
+
+### 3. AutoH3 - Complete Zero-Config Automation 🤖
+
+**The simplest possible API** - combining profiler + controller + everything:
+
+```python
+from h3 import AutoH3
+
+# Single line creates everything
+auto = AutoH3(
+    model.parameters(),
+    train_dataset,
+    mode="balanced",
+    name="mnist_auto_experiment"
+)
+
+auto.start()
+
+# Simple training interface
+for epoch in range(20):
+    loader = auto.get_loader(batch_size=64)
+
+    for data, target, indices in loader:
+        data, target = data.to(device), target.to(device)
+
+        # One-line training step
+        loss = auto.training_step(model, data, target, criterion, indices)
+
+    # One-line evaluation
+    accuracy = auto.evaluate_epoch(model, test_loader)
+
+# Comprehensive final report
+results = auto.finish()
+```
+
+**What it does:**
+- ✅ Combines H3Profiler + η-Controller + EnergyTracker
+- ✅ Zero configuration - just pick a mode
+- ✅ Automatic profiling and hyperparameter tuning
+- ✅ Simple training interface (training_step, evaluate_epoch)
+- ✅ Comprehensive final reports with all metrics
+- ✅ Works with standard PyTorch models and datasets
+
+**Use when:** You want the absolute simplest H3 experience with maximum automation.
+
+---
+
+### Feature Comparison
+
+| Feature | Manual H3 | Presets | η-Controller | AutoH3 | H3Profiler |
+|---------|-----------|---------|--------------|--------|------------|
+| Setup complexity | High | Low | Medium | **Very Low** | **Minimal** |
+| Hyperparameter tuning | Manual | Pre-tuned | **Automatic** | **Automatic** | N/A |
+| Works with any optimizer | No | No | No | No | **✅ YES** |
+| Real-time adaptation | No | No | **✅ YES** | **✅ YES** | No |
+| Zero risk | No | No | No | No | **✅ YES** |
+| Best for | Research | Quick start | Production | **Beginners** | **Profiling** |
+
+### Recommended Workflow
+
+1. **Start with H3Profiler** - Profile your existing training to understand baseline efficiency
+2. **Try AutoH3** - Get H3 benefits with zero configuration
+3. **Tune with η-Controller** - Fine-tune for production if needed
+4. **Use Presets** - If you want manual control with good defaults
+
+---
+
 ## 🧠 What is H3?
 
 H3 treats machine learning as a **thermodynamic process** that converts electrical energy into predictive information. Instead of just minimizing loss, H3 maximizes:
