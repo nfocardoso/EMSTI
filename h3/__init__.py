@@ -12,6 +12,7 @@ from h3.presets import (
     h3_edge,
 )
 from h3.explain import explain_thermo_log, green_score, compare_runs
+from h3.profiler import H3Profiler
 
 __version__ = "0.2.0-dev"
 
@@ -32,4 +33,5 @@ __all__ = [
     "explain_thermo_log",
     "green_score",
     "compare_runs",
+    "H3Profiler",
 ]

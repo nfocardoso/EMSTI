@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.2.0] - UNRELEASED
 
 ### Added
+- **H3Profiler** - Zero-risk thermodynamic profiler that works with ANY optimizer (Adam, SGD, AdamW, etc.)
+  - Non-invasive energy and information flow measurement
+  - Automatic diminishing returns detection
+  - Waste analysis and early stopping recommendations
+  - Works without changing existing training code
+  - Export to CSV/JSON for further analysis
 - Thermo-Audit logging system (`ThermoAuditLogger`) for standardized training metrics
 - Preset configurations for common use cases:
   - `MNISTFast` - Aggressive preset for highly redundant datasets
