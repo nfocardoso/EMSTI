@@ -14,6 +14,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Waste analysis and early stopping recommendations
   - Works without changing existing training code
   - Export to CSV/JSON for further analysis
+- **η-Controller** - Automatic hyperparameter adjustment based on real-time efficiency
+  - Thermodynamic coherence control (EMSTI-inspired)
+  - Operating modes: SAFE, BALANCED, GREEN, EXTREME
+  - Auto-adjusts keep_frac and uniform_mix to maintain target efficiency
+  - Respects accuracy constraints while maximizing energy savings
+  - Automatic phase transitions (warmup → thermodynamic → consolidation)
+  - Loss volatility detection and starvation prevention
+  - `create_controlled_h3()` convenience function for one-liner setup
 - Thermo-Audit logging system (`ThermoAuditLogger`) for standardized training metrics
 - Preset configurations for common use cases:
   - `MNISTFast` - Aggressive preset for highly redundant datasets

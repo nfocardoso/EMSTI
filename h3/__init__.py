@@ -13,6 +13,12 @@ from h3.presets import (
 )
 from h3.explain import explain_thermo_log, green_score, compare_runs
 from h3.profiler import H3Profiler
+from h3.eta_controller import (
+    EtaController,
+    CoherenceTarget,
+    OperatingMode,
+    create_controlled_h3,
+)
 
 __version__ = "0.2.0-dev"
 
@@ -34,4 +40,8 @@ __all__ = [
     "green_score",
     "compare_runs",
     "H3Profiler",
+    "EtaController",
+    "CoherenceTarget",
+    "OperatingMode",
+    "create_controlled_h3",
 ]
