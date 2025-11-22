@@ -19,6 +19,7 @@ from h3.eta_controller import (
     OperatingMode,
     create_controlled_h3,
 )
+from h3.auto import AutoH3, auto_h3
 
 __version__ = "0.2.0-dev"
 
@@ -44,4 +45,6 @@ __all__ = [
     "CoherenceTarget",
     "OperatingMode",
     "create_controlled_h3",
+    "AutoH3",
+    "auto_h3",
 ]

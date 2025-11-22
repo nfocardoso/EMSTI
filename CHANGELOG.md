@@ -22,6 +22,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Automatic phase transitions (warmup → thermodynamic → consolidation)
   - Loss volatility detection and starvation prevention
   - `create_controlled_h3()` convenience function for one-liner setup
+- **AutoH3** - Zero-config wrapper combining profiler + controller + energy tracking
+  - Complete automation with one-liner setup: `auto = AutoH3(model.parameters(), dataset, mode="balanced")`
+  - Integrated profiling and automatic hyperparameter tuning
+  - Simple training interface with `training_step()` and `evaluate_epoch()`
+  - Comprehensive final reports combining all metrics
+  - `auto_h3()` convenience function for quick setup
+  - Optional profiler and controller enable/disable
 - Thermo-Audit logging system (`ThermoAuditLogger`) for standardized training metrics
 - Preset configurations for common use cases:
   - `MNISTFast` - Aggressive preset for highly redundant datasets
