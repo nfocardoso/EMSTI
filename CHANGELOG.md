@@ -5,7 +5,17 @@ All notable changes to h3-optimizer will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.2.0] - UNRELEASED
+## [0.2.0] - 2025-01-23
+
+**Major release with production-ready automation features.**
+
+**Highlights:**
+- H3Profiler: Zero-risk thermodynamic profiling for any optimizer (Adam, SGD, AdamW)
+- η-Controller: Automatic hyperparameter tuning with 4 operating modes
+- AutoH3: Complete zero-config automation with one-liner setup
+- Preset configurations with one-liner setup for common datasets
+- CLI tools for analysis and reporting (h3-report)
+- Comprehensive documentation and examples
 
 ### Added
 - **H3Profiler** - Zero-risk thermodynamic profiler that works with ANY optimizer (Adam, SGD, AdamW, etc.)
