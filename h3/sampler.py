@@ -9,6 +9,7 @@ Reference: H3 paper, Section 5.3, Eq. 5.1
 """
 
 from typing import Optional, Iterator
+import warnings
 import torch
 from torch.utils.data import Sampler, Dataset
 
@@ -95,6 +96,16 @@ class LossTracker:
             raise ValueError(
                 f"indices must be in [0, {self.num_samples}), "
                 f"got range [{indices.min()}, {indices.max()}]"
+            )
+
+        # Warning for scalar loss (common mistake)
+        if losses.numel() == 1 and len(indices) > 1:
+            warnings.warn(
+                "⚠️  LossTracker received scalar loss but multiple indices. "
+                "Did you forget reduction='none' in your loss function? "
+                "H3 requires per-sample losses for information weighting.",
+                UserWarning,
+                stacklevel=2
             )
 
         # Move to same device as internal state
@@ -269,6 +280,16 @@ class InformationWeightedSampler(Sampler):
             raise ValueError(f"keep_frac must be in (0, 1], got {keep_frac}")
         if not 0.0 <= uniform_mix <= 1.0:
             raise ValueError(f"uniform_mix must be in [0, 1], got {uniform_mix}")
+
+        # Warning for aggressive keep_frac
+        if keep_frac < 0.4:
+            warnings.warn(
+                f"⚠️  keep_frac={keep_frac:.2f} is very aggressive (< 0.4). "
+                "This discards >60% of data per epoch and may hurt accuracy. "
+                "Consider keep_frac >= 0.55 for green mode, >= 0.75 for balanced mode.",
+                UserWarning,
+                stacklevel=2
+            )
 
         self.data_source = data_source
         self.loss_tracker = loss_tracker
