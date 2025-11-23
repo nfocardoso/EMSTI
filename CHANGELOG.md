@@ -5,17 +5,34 @@ All notable changes to h3-optimizer will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.2.0] - 2025-01-23
+## [0.2.0-alpha1] - 2025-01-23
 
-**Major release with production-ready automation features.**
+**Alpha Release - Experimental Features**
+
+This is an alpha release establishing the baseline for H3 development.
+Core features are functional but performance optimization is ongoing.
+
+**Recommended for:**
+- Research and experimentation
+- Profiling existing training runs (H3Profiler)
+- Experiment tracking (ThermoAuditLogger)
+
+**Not recommended for:**
+- Production deployments
+- Mission-critical applications
+
+**Known Limitations:**
+- H3Optimizer performance tuning incomplete for complex datasets
+- CIFAR-10 results show higher accuracy trade-offs than target (<1pp)
+- Energy measurements on MPS (Apple Silicon) may be inaccurate
+- Hyperparameter sensitivity needs better documentation
 
 **Highlights:**
-- H3Profiler: Zero-risk thermodynamic profiling for any optimizer (Adam, SGD, AdamW)
-- η-Controller: Automatic hyperparameter tuning with 4 operating modes
-- AutoH3: Complete zero-config automation with one-liner setup
-- Preset configurations with one-liner setup for common datasets
-- CLI tools for analysis and reporting (h3-report)
-- Comprehensive documentation and examples
+- H3Profiler (Stable): Zero-risk thermodynamic profiling for any optimizer
+- ThermoAuditLogger (Stable): Experiment tracking and analysis
+- η-Controller (Beta): Automatic hyperparameter tuning with 4 operating modes
+- AutoH3 (Beta): Zero-config automation with one-liner setup
+- CLI tools (Stable): h3-report for analysis and reporting
 
 ### Added
 - **H3Profiler** - Zero-risk thermodynamic profiler that works with ANY optimizer (Adam, SGD, AdamW, etc.)
