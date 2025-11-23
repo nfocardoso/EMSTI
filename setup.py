@@ -9,7 +9,7 @@ with open('README.md', 'r', encoding='utf-8') as f:
 
 setup(
     name='h3_optimizer',
-    version='0.2.0',
+    version='0.2.1',
     author='Nuno Cardoso',
     author_email='nuno@example.com',
     description='Thermodynamically efficient optimizer with Lipschitz-adaptive learning rates and information-weighted sampling',

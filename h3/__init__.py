@@ -4,12 +4,11 @@ from h3.sampler import LossTracker, InformationWeightedSampler, IndexedDataset
 from h3.energy_tracker import EnergyTracker
 from h3.hooks import ThermoAuditLogger, create_baseline_logger
 from h3.presets import (
-    MNISTFast,
-    CIFAR10Safe,
-    EdgeDevice,
+    h3_cifar10_safe_adamw,
+    h3_cifar10_balanced,
+    h3_cifar10_green,
     h3_mnist_fast,
-    h3_cifar_safe,
-    h3_edge,
+    load_preset,
 )
 from h3.explain import explain_thermo_log, green_score, compare_runs
 from h3.profiler import H3Profiler
@@ -20,8 +19,9 @@ from h3.eta_controller import (
     create_controlled_h3,
 )
 from h3.auto import AutoH3, auto_h3
+from h3.cli import h3_report_cli
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 
 __all__ = [
     "H3Optimizer",
@@ -31,12 +31,11 @@ __all__ = [
     "EnergyTracker",
     "ThermoAuditLogger",
     "create_baseline_logger",
-    "MNISTFast",
-    "CIFAR10Safe",
-    "EdgeDevice",
+    "h3_cifar10_safe_adamw",
+    "h3_cifar10_balanced",
+    "h3_cifar10_green",
     "h3_mnist_fast",
-    "h3_cifar_safe",
-    "h3_edge",
+    "load_preset",
     "explain_thermo_log",
     "green_score",
     "compare_runs",
@@ -47,4 +46,5 @@ __all__ = [
     "create_controlled_h3",
     "AutoH3",
     "auto_h3",
+    "h3_report_cli",
 ]
