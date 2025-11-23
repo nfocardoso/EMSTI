@@ -9,7 +9,7 @@ with open('README.md', 'r', encoding='utf-8') as f:
 
 setup(
     name='h3_optimizer',
-    version='0.2.0a1',
+    version='0.2.0',
     author='Nuno Cardoso',
     author_email='nuno@example.com',
     description='Thermodynamically efficient optimizer with Lipschitz-adaptive learning rates and information-weighted sampling',
@@ -18,7 +18,7 @@ setup(
     url='https://github.com/nfocardoso/EMSTI',
     packages=find_packages(),
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 5 - Production/Stable',
         'License :: OSI Approved :: MIT License',
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',

@@ -21,7 +21,7 @@ from h3.eta_controller import (
 )
 from h3.auto import AutoH3, auto_h3
 
-__version__ = "0.2.0a1"
+__version__ = "0.2.0"
 
 __all__ = [
     "H3Optimizer",

@@ -1,12 +1,12 @@
 """
-Pre-deployment validation for H3 Optimizer v0.2.0-alpha1
+Pre-deployment validation for H3 Optimizer v0.2.0
 Tests all imports, version, and basic functionality before PyPI upload.
 """
 
 import sys
 
 print("=" * 80)
-print("🔍 PRE-DEPLOY VALIDATION: H3 Optimizer v0.2.0-alpha1")
+print("🔍 PRE-DEPLOY VALIDATION: H3 Optimizer v0.2.0")
 print("=" * 80)
 print()
 
@@ -93,7 +93,7 @@ test_step("Version Check")
 try:
     import h3
     version = h3.__version__
-    expected = "0.2.0a1"
+    expected = "0.2.0"
 
     if version == expected:
         print(f"✅ Version correct: {version}")
@@ -234,23 +234,23 @@ except Exception as e:
     tests_failed += 1
 
 # ============================================================================
-# TEST 9: pyproject.toml Metadata Check
+# TEST 9: setup.py Metadata Check
 # ============================================================================
-test_step("pyproject.toml Metadata Validation")
+test_step("setup.py Metadata Validation")
 try:
-    with open('pyproject.toml', 'r') as f:
-        pyproject_content = f.read()
+    with open('setup.py', 'r') as f:
+        setup_content = f.read()
 
     # Check version
-    if 'version = "0.2.0a1"' in pyproject_content:
-        print("  ✅ pyproject.toml version is 0.2.0a1")
+    if "version='0.2.0'" in setup_content:
+        print("  ✅ setup.py version is 0.2.0")
     else:
-        print("  ❌ pyproject.toml version not found or incorrect")
-        errors.append("pyproject.toml version incorrect")
+        print("  ❌ setup.py version not found or incorrect")
+        errors.append("setup.py version incorrect")
         tests_failed += 1
 
     # Check name
-    if 'name = "h3_optimizer"' in pyproject_content:
+    if "name='h3_optimizer'" in setup_content:
         print("  ✅ Package name correct")
     else:
         print("  ❌ Package name incorrect")
@@ -258,7 +258,7 @@ try:
         tests_failed += 1
 
     # Check entry points
-    if 'h3-report = "h3.cli:main"' in pyproject_content:
+    if "h3-report=h3.cli:main" in setup_content:
         print("  ✅ CLI entry point configured")
     else:
         print("  ⚠️  CLI entry point missing (non-critical)")
@@ -279,7 +279,7 @@ try:
         changelog = f.read()
 
     # Check version entry
-    if "[0.2.0-alpha1] - 2025-01-23" in changelog:
+    if "[0.2.0] - 2025-01-23" in changelog:
         print("  ✅ CHANGELOG has correct version and date")
     else:
         print("  ❌ CHANGELOG missing version entry or wrong date")
