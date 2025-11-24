@@ -1,10 +1,8 @@
 # pyproject.toml - Build configuration for H3 Optimizer
 # Metadata is managed in setup.py for maximum PyPI compatibility
 # Using older setuptools to avoid Metadata-Version 2.4 (not yet supported by PyPI)
+# Console scripts are defined in setup.py entry_points
 
 [build-system]
 requires = ["setuptools>=40.8.0,<70.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
-
-[project.scripts]
-h3-report = "h3.cli:main"
